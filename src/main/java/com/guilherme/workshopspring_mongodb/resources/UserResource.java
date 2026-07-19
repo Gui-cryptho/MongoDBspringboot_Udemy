@@ -1,6 +1,7 @@
 package com.guilherme.workshopspring_mongodb.resources;
 
 import com.guilherme.workshopspring_mongodb.domain.User;
+import com.guilherme.workshopspring_mongodb.dto.UserDTO;
 import com.guilherme.workshopspring_mongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -21,9 +23,12 @@ public class UserResource {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> obj = userService.findAll();
-        return ResponseEntity.ok().body(obj);
+
+        List<UserDTO> objDTO = obj.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(objDTO);
     }
 
 }

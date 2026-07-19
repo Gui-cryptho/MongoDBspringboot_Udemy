@@ -18,6 +18,8 @@ public class Seed implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        userRepositorie.deleteAll();
+
         User u1 = new User(null, "maria brown", "maria@gmail.com");
         User u2 = new User(null, "james bond", "james@gmail.com");
 
