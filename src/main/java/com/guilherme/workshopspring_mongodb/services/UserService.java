@@ -36,10 +36,10 @@ public class UserService {
         userRepositorie.deleteById(id);
     }
 
-    public User put(User obj){
+    public void put(User obj){
         User newObj = findById(obj.getId());
         updateData(newObj, obj);
-        return userRepositorie.save(newObj);
+        userRepositorie.save(newObj);
 
     }
 
