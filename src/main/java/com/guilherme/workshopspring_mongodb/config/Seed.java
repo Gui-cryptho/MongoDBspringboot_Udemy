@@ -40,8 +40,10 @@ public class Seed implements CommandLineRunner {
         Post p1 = new Post(null, LocalDate.parse("2018-03-21", ftm1),"Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(u1));
         Post p2 = new Post(null, LocalDate.parse("2018-03-23", ftm1), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(u1));
 
-
         postRepositorie.saveAll(Arrays.asList(p1, p2));
+
+        u1.getPosts().addAll(Arrays.asList(p1, p2));
+        userRepositorie.save(u1);
 
     }
 }
