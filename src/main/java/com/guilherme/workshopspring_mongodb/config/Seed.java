@@ -3,6 +3,7 @@ package com.guilherme.workshopspring_mongodb.config;
 import com.guilherme.workshopspring_mongodb.domain.Post;
 import com.guilherme.workshopspring_mongodb.domain.User;
 import com.guilherme.workshopspring_mongodb.dto.AuthorDTO;
+import com.guilherme.workshopspring_mongodb.dto.CommentDTO;
 import com.guilherme.workshopspring_mongodb.repositories.PostRepositorie;
 import com.guilherme.workshopspring_mongodb.repositories.UserRepositorie;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,16 @@ public class Seed implements CommandLineRunner {
 
         u1.getPosts().addAll(Arrays.asList(p1, p2));
         userRepositorie.save(u1);
+
+
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", LocalDate.parse("2018-03-21", ftm1), new AuthorDTO(u2));
+        CommentDTO c2 = new CommentDTO("Aproveite!", LocalDate.parse("2018-03-22", ftm1), new AuthorDTO(u1));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", LocalDate.parse("2018-03-23", ftm1), new AuthorDTO(u2));
+
+        p1.getCommentDTOS().addAll(Arrays.asList(c1, c2));
+        p2.getCommentDTOS().add(c3);
+
+        postRepositorie.saveAll(Arrays.asList(p1, p2));
 
     }
 }
