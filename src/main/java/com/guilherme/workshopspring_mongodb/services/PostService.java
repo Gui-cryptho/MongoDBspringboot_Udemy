@@ -6,6 +6,7 @@ import com.guilherme.workshopspring_mongodb.services.exceptions.ResourceNotFound
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,11 @@ public class PostService {
     public Post findById(String id){
         Optional<Post> obj = postRepositorie.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException("Obejto nao encontrado"));
+
+    }
+
+    public List<Post> findByTitle(String title){
+        return postRepositorie.findByTitleContainingIgnoreCase(title);
 
     }
 }
