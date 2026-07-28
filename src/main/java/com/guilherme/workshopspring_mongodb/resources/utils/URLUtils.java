@@ -2,6 +2,9 @@ package com.guilherme.workshopspring_mongodb.resources.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class URLUtils {
 
@@ -12,6 +15,16 @@ public class URLUtils {
             return "";
         }
 
+    }
+
+    public static LocalDate stringFormatter(String date, LocalDate defaultValue) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            return LocalDate.parse(date, fmt);
+        } catch (DateTimeParseException e) {
+            return defaultValue;
+        }
     }
 
 }

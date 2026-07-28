@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,4 +31,17 @@ public class PostResource {
 
         return ResponseEntity.ok().body(obj);
     }
+
+    @RequestMapping(value = "buscaCompleta", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> buscaCompleta(@RequestParam(value = "msg", defaultValue = "") String msg,
+                                                    @RequestParam(value = "minDate", defaultValue = "") String minDate,
+                                                    @RequestParam(value = "maxDate", defaultValue = "") String maxDate){
+        String url = URLUtils.decodeUrl(msg);
+        LocalDate mDate = URLUtils.stringFormatter(minDate, LocalDate.of(1970, 1, 1));
+        LocalDate mxDate = URLUtils.stringFormatter(maxDate, LocalDate.now());
+        List<Post> obj = postService.buscaCompleta(url, mDate, mxDate);
+
+        return ResponseEntity.ok().body(obj);
+    }
+
 }

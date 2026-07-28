@@ -6,6 +6,8 @@ import com.guilherme.workshopspring_mongodb.services.exceptions.ResourceNotFound
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +26,10 @@ public class PostService {
     public List<Post> findByTitle(String title){
         return postRepositorie.buscasTitulo(title);
 
+    }
+
+    public List<Post> buscaCompleta(String msg, LocalDate minDate, LocalDate maxDate){
+        List<Post> obj = postRepositorie.buscaCompleta(msg, minDate, maxDate.plusDays(1));
+        return obj;
     }
 }
